@@ -4,10 +4,9 @@ require "connect.php";
 
 $author = $_POST["author"];
 $comment = $_POST["comment"];
-$arr = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
 
-for ($i = 0; $i < count($arr); $i++) {
-    if (stristr($author, $arr[$i]) !== false) {
+for ($i = 0; $i < strlen($author)-1; $i++) {
+    if (is_numeric($author[$i])) {
         exit('enter without numbers');
     }
 }
