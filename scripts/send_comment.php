@@ -13,8 +13,15 @@ for ($i = 0; $i < strlen($author)-1; $i++) {
 
 $query = "INSERT INTO task1 VALUES (id,'$author','$comment',CURRENT_TIMESTAMP)";
 
+try {
 if ($con->query($query) === true) {
-    echo "New record created successfully";
+
+    print("New record created successfully");
+    
 } else {
-    echo "Error: " . $sql . "<br>" . $con->error;
+    echo "Error: " . $con->error;
+}
+
+} catch (Exception $e) {
+    echo ($e->getMessage());
 }

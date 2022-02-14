@@ -1,9 +1,13 @@
 <?php
 
-$con = mysqli_connect('localhost', 'mysql', 'mysql', 'testdb2');
-mysqli_set_charset($con, "utf8");
+$mode = "dev";
 
-mysqli_query($con, "
+mysqli_report(MYSQLI_REPORT_ALL);
+try {
+  $con = mysqli_connect("localhost", "mysdql", "mysql", "testdb2");
+  mysqli_set_charset($con, "utf8");
+
+  mysqli_query($con, "
   CREATE TABLE IF NOT EXISTS `task1` (
     `id` int NOT NULL AUTO_INCREMENT,
     `author` varchar(255) CHARACTER SET utf8 NOT NULL,
@@ -12,7 +16,13 @@ mysqli_query($con, "
     PRIMARY KEY (`id`)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 ");
-
-if (mysqli_errno($con)) {
-    echo 'Field to connect : ' . mysqli_error($con);
-}
+} catch (Exception $e) {
+  http_response_code(500);
+  if ($mode == "prod") {
+    echo "Internal Server Error";
+    // TODO: write $e->getMessage() to logfile
+  } else {
+    echo "Field to connect : " . $e->getMessage();
+  }
+  exit;
+} 
