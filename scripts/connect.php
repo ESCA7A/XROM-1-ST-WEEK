@@ -4,7 +4,7 @@ $mode = "dev";
 
 mysqli_report(MYSQLI_REPORT_ALL);
 try {
-  $con = mysqli_connect("localhost", "mysdql", "mysql", "testdb2");
+  $con = mysqli_connect("localhost", "root", "5800", "testdb2");
   mysqli_set_charset($con, "utf8");
 
   mysqli_query($con, "
